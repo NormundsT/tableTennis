@@ -70,8 +70,7 @@
               </q-item-section>
             </template>
             <q-list>
-              <q-item class="q-my-sm" clickable v-ripple
-                      to='/table/2022/Q1'>
+              <q-item class="q-my-sm" disabled>
                 <q-item-section avatar>
                 </q-item-section>
 
@@ -80,8 +79,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item class="q-my-sm" clickable v-ripple
-                      to='/table/2022/Q2'>
+              <q-item class="q-my-sm" disabled>
                 <q-item-section avatar>
                 </q-item-section>
 
@@ -90,8 +88,7 @@
                 </q-item-section>
               </q-item>
 
-              <q-item class="q-my-sm" clickable v-ripple
-                      to='/table/2022/Q3'>
+              <q-item class="q-my-sm" disabled>
                 <q-item-section avatar>
                 </q-item-section>
 

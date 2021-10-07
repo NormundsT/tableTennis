@@ -12,7 +12,7 @@
       If you want to participate in the next events:
     </div>
     <div class="text-h6 text-weight-regular q-pl-lg q-mt-lg">
-      • Listen to slack channel <a href="https://join.slack.com/share/zt-u4nu26sk-9fHo6DCaSHd3QtyE6cv42Q">#1nce-riga-table-tennis</a>
+      • Listen to slack channel <a href="https://join.slack.com/share/zt-wxikd6oj-HoqfM4Jlo4R2wd_rFMeGHw">#1nce-riga-table-tennis</a>
     </div>
     <small class="q-pl-xl">
          or

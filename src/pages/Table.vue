@@ -40,7 +40,7 @@
             {{ player }}
           </td>
           <td v-for="(oponent, oponentIndex) of players" v-bind:key="oponentIndex"
-              :class="{ 'grey-cell' : oponentIndex === playerIndex}"
+              :class="{ 'grey-cell' : oponentIndex === playerIndex, 'red-cell' : getMatchPoints(player, oponent) === abandonedGame}"
           >
             <template v-if="oponentIndex !== playerIndex && tableData.length">
               <strong v-if="tableData.length">
@@ -92,6 +92,7 @@ export default {
       allPlayerPoints: [],
       allPlayerSets: [],
       randomValues: [],
+      abandonedGame: '0 : 0',
       scaleLeveL: 1,
       defaultYear: '2021',
       defaultSeason: 'Q3',
@@ -100,12 +101,7 @@ export default {
       leftDrawerOpen: false,
       years: ['2021', '2022'],
       seasons: ['Q1', 'Q2', 'Q3', 'Q4'],
-      players6: ['Zigis', 'Vilis', 'Olegs', 'Glebs', 'Olivers', 'Ulrichs', 'Skapis', 'Paps', 'Zirdziš'],
-      players3: ['player0', 'player01', 'player02', 'player03', 'player04'],
-      players: [
-        'player0', 'player1', 'player2', 'player3', 'player4',
-        'player5', 'player6', 'player7', 'player8', 'player9',
-        'playepr10', 'asd']
+      players: []
     }
   },
   watch: {
@@ -133,13 +129,15 @@ export default {
       const points = this.tableData.find(result => result[player] !== undefined && result[oponent] !== undefined)
       if (points && points[player] && points[player] === this.winingSets) {
         return 1
+      } else if (points && points[player] === 0 && points[oponent] === 0) {
+        return undefined
       } else if (points && points[player] !== undefined) {
         return 0
       }
     },
     getMatchPoints: function (player, oponent) {
       const results = this.tableData.find(result => result[player] !== undefined && result[oponent] !== undefined)
-      if (results) {
+      if (results && player !== oponent) {
         return results[player] + ' : ' + results[oponent]
       }
     },
@@ -296,7 +294,12 @@ export default {
           return bestPosition
         } else if (playerMutualGamesWinned === 0) {
           // If somebody have lost all mutual games with oponents with the same point count, then he has 'worstPosition'
-          return worstPosition
+          if (playersWithTheSameMutualGamePointCount.length === 1) {
+            return worstPosition
+          } else {
+            // It is possible that multiple players have lost all mutual games, because of the abondon games.
+            return (worstPosition - (playersWithTheSameMutualGamePointCount.length - 1)) + ' - ' + worstPosition
+          }
         }
         const mutualWinnedGamesArray = winnedMutualGames.map(result => result.mutualWins).sort(function (a, b) { return a - b }).reverse()
         const mutualWinnedGamesArrayIndex = mutualWinnedGamesArray.findIndex(res => res === playerMutualGamesWinned)
@@ -420,6 +423,10 @@ export default {
 <style>
 .grey-cell {
   background-color: grey;
+}
+
+.red-cell {
+  background-color: #d0b2b2;
 }
 
 td, th {
